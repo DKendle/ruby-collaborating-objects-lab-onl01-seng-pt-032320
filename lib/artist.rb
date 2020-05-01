@@ -1,29 +1,41 @@
 require "pry"
 
-class Artist 
+class Artist
   attr_accessor :name, :songs
-  
+
   @@all = []
-  
+
   def initialize(name)
     @name = name
     @songs = []
     @@all << self
   end
-  
-  def self.all 
-    @@all 
+
+  def self.all
+    @@all
   end
-  
+
   def songs
     Song.all.select {|song| song.artist == self}
   end
-  
+
   def add_song(song)
     song.artist = self
     @songs << song
+
+  #   if song.artist != self
+  #     song.artist = self
+  #   else
+  #     song.artist
+  #   end
+  #   if !(@songs.include?(song))
+  #     @songs << song
+  #   else
+  #     @songs
+  #   end
+  # end
   end
-  
+
   def self.find_or_create_by_name(name)
     my_artist = @@all.find do |artist|
       artist.name == name
@@ -33,11 +45,11 @@ class Artist
       else
         my_artist = Artist.new(name)
         # @@all << my_artist
-      end 
+      end
       return my_artist
   end
 
-  def print_songs 
+  def print_songs
     songs.collect do |song|
       puts song.name
     end
@@ -49,5 +61,5 @@ class Artist
     # end
   end
 
-  
+
 end
